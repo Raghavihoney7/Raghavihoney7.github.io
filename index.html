@@ -3,132 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Identifier</title>
+    <title>Raghavi Yerramsetti | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* 🌿 General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f0f8ed;
-            color: #333;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* 🌱 Header */
+        body {
+            background: linear-gradient(135deg, #1f1f1f, #2c3e50);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
         header {
+            position: fixed;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 10%;
-            background-color: #022e1a;   ##2e8b57
-            color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            color:white;    # plant identifier color
+            font-size: 28px;
+            font-weight: 600;
+            color: #00b4d8;
+            letter-spacing: 1px;
         }
 
-        nav ul {
+        .nav-links {
             list-style: none;
-            padding: 0;
-            margin: 0;
             display: flex;
+            gap: 25px;
         }
 
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
+        .nav-links a {
+            color: #e0e0e0;
             text-decoration: none;
-            color: white;
-            font-size: 1em;
-            transition: 0.3s;
+            font-size: 16px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        nav ul li a:hover {
-            color: #dfffd6;
+        .nav-links a:hover {
+            color: #00b4d8;
+            transform: scale(1.1);
         }
 
-        /* 🌿 Hero Section */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            color: #00b4d8;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .hero {
             text-align: center;
-            padding: 50px 20px;
-            min-height: 100vh;
-            background: url('https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?cs=srgb&dl=pexels-sohi-807598.jpg&fm=jpg') no-repeat center center/cover;
-            background-size: cover;
-            background-attachment: fixed;
-            color: white;
-           // display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 150px 0;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.1), transparent);
         }
 
         .hero h1 {
-            font-size: 2.5em;
-            font-family: sans-serif; // Discover the world title ....
+            font-size: 48px;
             margin-bottom: 10px;
         }
 
         .hero p {
-            font-size: 1.2em;  // down images titles
-            font-family: sans-serif;
+            font-size: 20px;
+            color: #b0c4de;
         }
 
-        .cta-button {   // identify the plant
-            background: #ffb703;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            font-size: 1.2em;
-            font-family:sans-serif;
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #00b4d8;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 20px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0077b6;
+            transform: translateY(-3px);
+        }
+
+        .about-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .skills-container {
+            display: grid;
+            gap: 15px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 15px;
+        }
+
+        .skill {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .skill span {
+            font-size: 16px;
+            color: #b0c4de;
+        }
+
+        .skill-bar {
+            height: 12px;
+            background: #404040;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            width: 0; /* Starts at 0, animates to data-width */
+            transition: width 1.5s ease-in-out;
+        }
+
+        .skill-progress.python {
+            background: #00b4d8; /* Cyan for 90% */
+        }
+
+        .skill-progress.flutter {
+            background: #4ecdc4; /* Turquoise for 85% */
+        }
+
+        .skill-progress.javascript {
+            background: #ff6b6b; /* Coral for 80% */
+        }
+
+        .skill-progress.django {
+            background: #ffa07a; /* Light Salmon for 75% */
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #00b4d8;
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: #00b4d8;
+            border-radius: 50%;
+            border: 2px solid #1f1f1f;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: #2a2a2a;
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
         }
 
-        .cta-button:hover {  // identify a plant now colour hover
-            background: #ff9805;
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.2);
         }
 
+        #achievements ul {
+            list-style: none;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 15px;
+        }
 
+        #achievements li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
 
+        #achievements li::before {
+            content: '★';
+            color: #00b4d8;
+            position: absolute;
+            left: 0;
+        }
 
-        /* 🌱 Footer */
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: #022e1a;
-            color: white;
-            margin-top: 10px;
+        #contact p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #contact a {
+            color: #00b4d8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        #contact a:hover {
+            color: #0077b6;
         }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="logo">🌱 Plant Identifier</div>
         <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Identify</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Contact</a></li>
+            <div class="logo">Raghavi</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Discover the World of Plants Around You!</h1>
-        <p>Use AI-powered plant identification to learn more about any plant instantly.</p>
-        <button class="cta-button">Identify a Plant Now</button>
+    <section id="home">
+        <div class="hero">
+            <h1>Hello, I'm Raghavi Yerramsetti</h1>
+            <p>Full Stack Developer | Innovator | SIH 2024 Winner</p>
+            <a href="#projects" class="btn">Explore My Work</a>
+        </div>
     </section>
-    <footer>
-        <p>&copy; 2025 Plant Identifier. All rights reserved.</p>
-    </footer>
 
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>Enthusiastic and motivated engineering student with a keen interest in software development. Currently learning data structures and algorithms while building real-time solutions using Flutter, LoRa, Python and JavaScript. Winner of SIH 2024 and an intern at IIT Tirupati, with hands-on experience in application development and problem-solving. Eager to grow and contribute to innovative solutions of your organization as an SDE Trainee.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skill">
+                <span>Python</span>
+                <div class="skill-bar">
+                    <div class="skill-progress python" data-width="90%"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>Flutter</span>
+                <div class="skill-bar">
+                    <div class="skill-progress flutter" data-width="85%"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>JavaScript</span>
+                <div class="skill-bar">
+                    <div class="skill-progress javascript" data-width="80%"></div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>Django</span>
+                <div class="skill-bar">
+                    <div class="skill-progress django" data-width="75%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>App Developer & Manager - David Startup</h3>
+                <p>03/2025 - Ongoing, India</p>
+                <p>Researched and validated key features for an AI-powered smart classroom assistant, ensuring feasibility before development. Provided technical insights on automated attendance tracking, class notes generation, and quiz creation, shaping the product roadmap. Built dashboards for teachers, students, and administrators, enhancing classroom efficiency and engagement. Led the technical implementation and coordinated with educational institutions for deployment.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Software Developer Intern - ClashCode Startup</h3>
+                <p>03/2025 - Ongoing, Bangalore, India</p>
+                <p>Researched and analyzed real-time competitive coding challenges, focusing on efficient algorithm execution and problem-solving. Explored methods to optimize code execution time and memory usage, ensuring a smoother experience for users. Assisted in discussions on backend logic for real-time multiplayer coding, gaining insights into system design and scalability. Contributed ideas to improve code evaluation mechanisms and anti-cheating strategies, enhancing platform integrity.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Recruiter Platform - Worked with Dharma Teja Neralla (Freelancer)</h3>
+                <p>03/2024 – 07/2024, Visakhapatnam, India</p>
+                <p>Contributed to the development of a social media-inspired job platform where companies can post job openings, and bench employees can find temporary project-based work. Assisted in designing and implementing user authentication, job posting, and project management features, ensuring a secure and scalable system. Developed efficient database queries to enhance job recommendations, skill-based matching, and project allocation. Optimized backend logic for fast search retrieval and seamless user experience, improving recruitment efficiency.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>IoT & Software Developer Intern - IIT Tirupati – Star-PNT</h3>
+                <p>05/2024 - 07/2024, Tirupati, India</p>
+                <p>Independently conceptualized and developed a real-time vehicle tracking system using LoRa technology, integrating GPS for accurate location tracking. Designed and implemented a Python-based visualization tool to monitor real-time vehicle movement. Conducted research and optimized LoRa transmission parameters, improving network performance and reducing data loss. Explored potential use cases for smart transportation, aligning with IoT-driven mobility solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <h3>Real-Time Order Tracking System using LoRa</h3>
+                <p>(05/2024 – 07/2024)</p>
+                <p>Developed a real-time tracking system using LoRa and GPS, enabling accurate order tracking across long distances. Created a Python-based visualization tool to monitor delivery movements in real time. Optimized network performance and data transmission parameters, reducing latency and improving efficiency.</p>
+            </div>
+            <div class="project-card">
+                <h3>David – Smart Classroom Assistant</h3>
+                <p>(Ongoing)</p>
+                <p>Researched and validated AI-driven features such as automated attendance, class notes generation, and quiz creation before development. Provided feasibility analysis for real-time student performance insights and interactive learning enhancements. Contributed to designing role-based dashboards for teachers, students, and administrators.</p>
+            </div>
+            <div class="project-card">
+                <h3>Recruiter Platform – Job Matching</h3>
+                <p>(03/2024 – 08/2024)</p>
+                <p>Built a platform where companies can post job openings and employees on the bench can work on temporary projects. Designed user authentication, job posting, and project management modules. Developed database queries for structured data retrieval, improving job recommendations and skill-based matching.</p>
+            </div>
+            <div class="project-card">
+                <h3>PlantNet – Smart Plant Detection</h3>
+                <p>(01/2025 – 02/2025)</p>
+                <p>Researched and assisted in developing an image-processing model for detecting plant diseases based on leaf patterns. Integrated Python and Flutter to create an interactive mobile-friendly interface for users to scan and get disease predictions. Explored ML-based classification models for high accuracy.</p>
+            </div>
+            <div class="project-card">
+                <h3>Portfolio</h3>
+                <p>(https://raghavihoney7.github.io/)</p>
+                <p>Developed a professional web portfolio using HTML, CSS, JavaScript. Implemented various animation techniques for better visuals.</p>
+            </div>
+            <div class="project-card">
+                <h3>SnackShop & ShopSo – E-Commerce Websites</h3>
+                <p>(01/2025 – 02/2025)</p>
+                <p>Designed and developed the front-end and back-end database architecture based on customer requirements. Implemented secure payment gateways, user authentication, and product management features. Optimized database queries to improve search results and order processing speed.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2>Achievements</h2>
+        <ul>
+            <li>Winner at Smart India Hackathon (SIH) 2024 – Developed ‘David,’ an AI-powered smart classroom assistant.</li>
+            <li>Won Best All-Rounder Award Female category in Raghu Institute of Technology 2025.</li>
+            <li>IEEE APS Chair (2024-25) – Led technical initiatives and organized events at Raghu Institute of Technology.</li>
+            <li>Anchor at WAMS 2024 – Hosted and managed a four-day technical event at Raghu Engineering College.</li>
+            <li>Internship at IIT Tirupati – Star-PNT 2024 – Designed a real-time vehicle tracking system using LoRa technology.</li>
+            <li>Finalist at Idea-Thon 2023 – Recognized for innovative problem-solving in tech-based solutions.</li>
+            <li>Top 500 in National Space Science Symposium (NSSS) 2022 – Ranked among the top 500 for contributions to space science.</li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: <a href="mailto:raghavi.sharon7@gmail.com">raghavi.sharon7@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Raghavihoney7">Raghavihoney7</a></p>
+    </section>
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate skill bars on scroll
+        const skillProgress = document.querySelectorAll('.skill-progress');
+        window.addEventListener('scroll', () => {
+            skillProgress.forEach(progress => {
+                const rect = progress.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    progress.style.width = progress.getAttribute('data-width');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
