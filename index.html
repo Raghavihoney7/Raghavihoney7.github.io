@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raghavi Yerramsetti | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         * {
             margin: 0;
@@ -18,6 +19,8 @@
             color: #e0e0e0;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+            min-height: 200vh; /* Ensure scrollable height */
         }
 
         header {
@@ -60,13 +63,25 @@
 
         .nav-links a:hover {
             color: #00b4d8;
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            color: #00b4d8;
+            cursor: pointer;
         }
 
         section {
             padding: 100px 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
         }
 
         h1, h2 {
@@ -75,12 +90,24 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 0.8s ease forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .hero {
             text-align: center;
             padding: 150px 0;
-            background: radial-gradient(circle, rgba(0, 180, 216, 0.1), transparent);
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.1), transparent) fixed;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero h1 {
@@ -91,6 +118,20 @@
         .hero p {
             font-size: 20px;
             color: #b0c4de;
+        }
+
+        .hero-illustration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .hero-illustration lottie-player {
+            width: 400px;
+            height: 400px;
         }
 
         .btn {
@@ -110,7 +151,7 @@
         }
 
         .about-content {
-            background: #2a2a2a;
+            background: #1e2a38;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -120,7 +161,7 @@
             display: grid;
             gap: 15px;
             padding: 20px;
-            background: #2a2a2a;
+            background: #1e2a38;
             border-radius: 15px;
         }
 
@@ -144,25 +185,14 @@
 
         .skill-progress {
             height: 100%;
-            width: 0; /* Starts at 0, animates to data-width */
-            transition: width 1.5s ease-in-out;
+            width: 0;
+            transition: width 1.5s ease-out;
         }
 
-        .skill-progress.python {
-            background: #00b4d8; /* Cyan for 90% */
-        }
-
-        .skill-progress.flutter {
-            background: #4ecdc4; /* Turquoise for 85% */
-        }
-
-        .skill-progress.javascript {
-            background: #ff6b6b; /* Coral for 80% */
-        }
-
-        .skill-progress.django {
-            background: #ffa07a; /* Light Salmon for 75% */
-        }
+        .skill-progress.python { background: #00b4d8; }
+        .skill-progress.flutter { background: #4ecdc4; }
+        .skill-progress.javascript { background: #ff6b6b; }
+        .skill-progress.django { background: #ffa07a; }
 
         .timeline {
             position: relative;
@@ -182,10 +212,31 @@
         .timeline-item {
             margin-bottom: 40px;
             position: relative;
-            background: #2a2a2a;
+            background: #1e2a38;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px) rotate(-2deg);
+            animation: fadeInUp 0.6s ease forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: scale(1.03) rotate(0deg);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.4);
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
         }
 
         .timeline-item::before {
@@ -207,7 +258,7 @@
         }
 
         .project-card {
-            background: #2a2a2a;
+            background: #1e2a38;
             padding: 25px;
             border-radius: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -215,14 +266,51 @@
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #1e2a38;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #00b4d8;
+            cursor: pointer;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         #achievements ul {
             list-style: none;
             padding: 20px;
-            background: #2a2a2a;
+            background: #1e2a38;
             border-radius: 15px;
         }
 
@@ -253,12 +341,196 @@
         #contact a:hover {
             color: #0077b6;
         }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Professional Rocket Path */
+        .rocket-path {
+            position: fixed;
+            top: 0;
+            right: 30px;
+            height: 100vh;
+            width: 150px;
+            z-index: 998;
+            pointer-events: none;
+        }
+
+        .rocket-path svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .rocket-path path {
+            stroke: url(#pathGradient); /* Gradient stroke */
+            stroke-width: 2;
+            stroke-dasharray: 8, 8; /* Refined dotted pattern */
+            fill: none;
+            opacity: 0.7;
+        }
+
+        /* Rocket */
+        .rocket {
+            position: fixed;
+            right: 30px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            z-index: 999;
+            transition: transform 0.05s ease-out; /* Smoother movement */
+        }
+
+        .rocket svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(45deg); /* Tilted for flight effect */
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 20px;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                margin: 10px 0;
+            }
+
+            .hero {
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-illustration lottie-player {
+                width: 250px;
+                height: 250px;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .skills-container, .about-content, #achievements ul {
+                padding: 15px;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-item {
+                padding: 15px;
+            }
+
+            .timeline-item::before {
+                left: -20px;
+                top: 15px;
+                width: 10px;
+                height: 10px;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                padding: 15px;
+            }
+
+            #contact p {
+                font-size: 16px;
+            }
+
+            .rocket-path {
+                right: 15px;
+                width: 100px;
+            }
+
+            .rocket {
+                width: 30px;
+                height: 30px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 24px;
+            }
+
+            .hamburger {
+                font-size: 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .rocket {
+                width: 25px;
+                height: 25px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">Raghavi</div>
+            <div class="hamburger">☰</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -271,22 +543,44 @@
         </nav>
     </header>
 
-    <section id="home">
+    <div class="rocket-path">
+        <svg viewBox="0 0 150 1000">
+            <defs>
+                <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00b4d8;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#0077b6;stop-opacity:0.5" />
+                </linearGradient>
+            </defs>
+            <path id="rocketPath" d="M 120 20 Q 50 300 120 500 Q 70 700 120 980" />
+        </svg>
+    </div>
+
+    <div class="rocket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 12h4v8h4v-6h4v6h4v-8h4L12 2z" fill="#00b4d8" />
+            <path d="M10 14h4v6h-4v-6z" fill="#0077b6" />
+        </svg>
+    </div>
+
+    <section id="home" class="hidden">
         <div class="hero">
-            <h1>Hello, I'm Raghavi Yerramsetti</h1>
+            <div class="hero-illustration">
+                <lottie-player src="https://lottie.host/6d472edd-25ff-42a8-af5d-9f70fccd1b77/M4EzYppKYE.lottie" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <h1></h1>
             <p>Full Stack Developer | Innovator | SIH 2024 Winner</p>
             <a href="#projects" class="btn">Explore My Work</a>
         </div>
     </section>
 
-    <section id="about">
+    <section id="about" class="hidden">
         <h2>About Me</h2>
         <div class="about-content">
             <p>Enthusiastic and motivated engineering student with a keen interest in software development. Currently learning data structures and algorithms while building real-time solutions using Flutter, LoRa, Python and JavaScript. Winner of SIH 2024 and an intern at IIT Tirupati, with hands-on experience in application development and problem-solving. Eager to grow and contribute to innovative solutions of your organization as an SDE Trainee.</p>
         </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="hidden">
         <h2>Technical Skills</h2>
         <div class="skills-container">
             <div class="skill">
@@ -316,69 +610,76 @@
         </div>
     </section>
 
-    <section id="experience">
+    <section id="experience" class="hidden">
         <h2>Experience</h2>
         <div class="timeline">
             <div class="timeline-item">
                 <h3>App Developer & Manager - David Startup</h3>
                 <p>03/2025 - Ongoing, India</p>
-                <p>Researched and validated key features for an AI-powered smart classroom assistant, ensuring feasibility before development. Provided technical insights on automated attendance tracking, class notes generation, and quiz creation, shaping the product roadmap. Built dashboards for teachers, students, and administrators, enhancing classroom efficiency and engagement. Led the technical implementation and coordinated with educational institutions for deployment.</p>
+                <p>Developed AI-powered smart classroom assistant with dashboards for teachers, students, and admins.</p>
             </div>
             <div class="timeline-item">
                 <h3>Software Developer Intern - ClashCode Startup</h3>
                 <p>03/2025 - Ongoing, Bangalore, India</p>
-                <p>Researched and analyzed real-time competitive coding challenges, focusing on efficient algorithm execution and problem-solving. Explored methods to optimize code execution time and memory usage, ensuring a smoother experience for users. Assisted in discussions on backend logic for real-time multiplayer coding, gaining insights into system design and scalability. Contributed ideas to improve code evaluation mechanisms and anti-cheating strategies, enhancing platform integrity.</p>
+                <p>Optimized real-time coding challenges and improved code evaluation mechanisms.</p>
             </div>
             <div class="timeline-item">
                 <h3>Recruiter Platform - Worked with Dharma Teja Neralla (Freelancer)</h3>
                 <p>03/2024 – 07/2024, Visakhapatnam, India</p>
-                <p>Contributed to the development of a social media-inspired job platform where companies can post job openings, and bench employees can find temporary project-based work. Assisted in designing and implementing user authentication, job posting, and project management features, ensuring a secure and scalable system. Developed efficient database queries to enhance job recommendations, skill-based matching, and project allocation. Optimized backend logic for fast search retrieval and seamless user experience, improving recruitment efficiency.</p>
+                <p>Built a job platform with user authentication and skill-based job matching.</p>
             </div>
             <div class="timeline-item">
                 <h3>IoT & Software Developer Intern - IIT Tirupati – Star-PNT</h3>
                 <p>05/2024 - 07/2024, Tirupati, India</p>
-                <p>Independently conceptualized and developed a real-time vehicle tracking system using LoRa technology, integrating GPS for accurate location tracking. Designed and implemented a Python-based visualization tool to monitor real-time vehicle movement. Conducted research and optimized LoRa transmission parameters, improving network performance and reducing data loss. Explored potential use cases for smart transportation, aligning with IoT-driven mobility solutions.</p>
+                <p>Created a real-time vehicle tracking system using LoRa and GPS.</p>
             </div>
         </div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="hidden">
         <h2>Projects</h2>
         <div class="projects-container">
-            <div class="project-card">
+            <div class="project-card" data-modal="Real-Time Order Tracking System using LoRa: Real-time order tracking with LoRa and GPS, featuring a Python visualization tool.">
                 <h3>Real-Time Order Tracking System using LoRa</h3>
                 <p>(05/2024 – 07/2024)</p>
-                <p>Developed a real-time tracking system using LoRa and GPS, enabling accurate order tracking across long distances. Created a Python-based visualization tool to monitor delivery movements in real time. Optimized network performance and data transmission parameters, reducing latency and improving efficiency.</p>
+                <p>Real-time order tracking with LoRa and GPS.</p>
             </div>
-            <div class="project-card">
+            <div class="project-card" data-modal="David – Smart Classroom Assistant: AI-driven classroom tool with automated attendance and dashboards.">
                 <h3>David – Smart Classroom Assistant</h3>
                 <p>(Ongoing)</p>
-                <p>Researched and validated AI-driven features such as automated attendance, class notes generation, and quiz creation before development. Provided feasibility analysis for real-time student performance insights and interactive learning enhancements. Contributed to designing role-based dashboards for teachers, students, and administrators.</p>
+                <p>AI-driven classroom tool with automated attendance.</p>
             </div>
-            <div class="project-card">
+            <div class="project-card" data-modal="Recruiter Platform – Job Matching: Job platform connecting companies and bench employees with skill matching.">
                 <h3>Recruiter Platform – Job Matching</h3>
                 <p>(03/2024 – 08/2024)</p>
-                <p>Built a platform where companies can post job openings and employees on the bench can work on temporary projects. Designed user authentication, job posting, and project management modules. Developed database queries for structured data retrieval, improving job recommendations and skill-based matching.</p>
+                <p>Job platform connecting companies and bench employees.</p>
             </div>
-            <div class="project-card">
+            <div class="project-card" data-modal="PlantNet – Smart Plant Detection: AI-based plant disease detection app using Python and Flutter.">
                 <h3>PlantNet – Smart Plant Detection</h3>
                 <p>(01/2025 – 02/2025)</p>
-                <p>Researched and assisted in developing an image-processing model for detecting plant diseases based on leaf patterns. Integrated Python and Flutter to create an interactive mobile-friendly interface for users to scan and get disease predictions. Explored ML-based classification models for high accuracy.</p>
+                <p>AI-based plant disease detection app.</p>
             </div>
-            <div class="project-card">
+            <div class="project-card" data-modal="Portfolio: Personal web portfolio with HTML, CSS, and JavaScript animations (https://raghavihoney7.github.io/).">
                 <h3>Portfolio</h3>
                 <p>(https://raghavihoney7.github.io/)</p>
-                <p>Developed a professional web portfolio using HTML, CSS, JavaScript. Implemented various animation techniques for better visuals.</p>
+                <p>Personal web portfolio with animations.</p>
             </div>
-            <div class="project-card">
+            <div class="project-card" data-modal="SnackShop & ShopSo – E-Commerce Websites: E-commerce sites with payment gateways and optimized database queries.">
                 <h3>SnackShop & ShopSo – E-Commerce Websites</h3>
                 <p>(01/2025 – 02/2025)</p>
-                <p>Designed and developed the front-end and back-end database architecture based on customer requirements. Implemented secure payment gateways, user authentication, and product management features. Optimized database queries to improve search results and order processing speed.</p>
+                <p>E-commerce sites with payment gateways.</p>
             </div>
         </div>
     </section>
 
-    <section id="achievements">
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <section id="achievements" class="hidden">
         <h2>Achievements</h2>
         <ul>
             <li>Winner at Smart India Hackathon (SIH) 2024 – Developed ‘David,’ an AI-powered smart classroom assistant.</li>
@@ -391,10 +692,12 @@
         </ul>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="hidden">
         <h2>Contact Me</h2>
         <p>Email: <a href="mailto:raghavi.sharon7@gmail.com">raghavi.sharon7@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/Raghavihoney7">Raghavihoney7</a></p>
+        <p>Mobile: +91 9912497189</p>
+        <p>LinkedIn: <a href="https://rb.gy/e5tiqq" target="_blank">Raghavi Yerramsetti</a></p>
+        <p>GitHub: <a href="https://github.com/Raghavihoney7" target="_blank">Raghavihoney7</a></p>
     </section>
 
     <script>
@@ -408,15 +711,118 @@
             });
         });
 
-        // Animate skill bars on scroll
+        // Animate skill bars, timeline items, and project cards on scroll
         const skillProgress = document.querySelectorAll('.skill-progress');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const projectCards = document.querySelectorAll('.project-card');
+
         window.addEventListener('scroll', () => {
             skillProgress.forEach(progress => {
                 const rect = progress.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
+                if (rect.top < window.innerHeight && !progress.classList.contains('animated')) {
                     progress.style.width = progress.getAttribute('data-width');
+                    progress.classList.add('animated');
                 }
             });
+
+            timelineItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    item.style.animationPlayState = 'running';
+                }
+            });
+
+            projectCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight && !card.classList.contains('animated')) {
+                    card.style.transition = 'all 0.5s ease';
+                    card.classList.add('animated');
+                }
+            });
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Typing animation for hero text
+        const heroText = "Hello, I'm Raghavi Yerramsetti";
+        const heroElement = document.querySelector('.hero h1');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < heroText.length) {
+                heroElement.textContent += heroText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        heroElement.textContent = '';
+        window.addEventListener('load', typeWriter);
+
+        // Rocket animation along curved path
+        const rocket = document.querySelector('.rocket');
+        const path = document.getElementById('rocketPath');
+        const pathLength = path.getTotalLength();
+
+        // Set initial position of the rocket
+        const startPoint = path.getPointAtLength(0);
+        rocket.style.transform = `translate(${startPoint.x - 20}px, ${startPoint.y - 20}px) rotate(45deg)`;
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const scrollFraction = Math.min(scrollPosition / maxScroll, 1); // Cap at 1
+            const pathPosition = scrollFraction * pathLength;
+
+            // Get the point on the path at the current scroll position
+            const point = path.getPointAtLength(pathPosition);
+
+            // Smoothly position the rocket
+            rocket.style.transform = `translate(${point.x - 20}px, ${point.y - 20}px) rotate(45deg)`;
+        });
+
+        // Modal for project cards
+        const modal = document.getElementById('modal');
+        const modalText = document.getElementById('modal-text');
+        const closeModal = document.querySelector('.close');
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                modalText.textContent = card.getAttribute('data-modal');
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Scroll-triggered animations for sections
+        const sections = document.querySelectorAll('section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => {
+            section.classList.add('hidden');
+            observer.observe(section);
         });
     </script>
 </body>
